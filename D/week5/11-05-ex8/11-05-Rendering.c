@@ -37,18 +37,26 @@ void ic2_DrawFrame(void)
   {
     static float roty = 0.0; // Y軸回りの回転 [degree]
     static float rotx = 0.0;
+    const float rotSpeed = 2.0; // 回転速度
+
+    // キー入力に応じて回転角度を更新
+    if (key_h_pressed) roty -= rotSpeed; // 左回転
+    if (key_j_pressed) roty += rotSpeed; // 右回転
+    if (key_k_pressed) rotx -= rotSpeed; // 上回転
+    if (key_l_pressed) rotx += rotSpeed; // 下回転
+
     glLoadIdentity();
     glTranslatef(0.0, 0.0, -3.0); // 透視投影の描画範囲と対応必要
-    glRotatef(roty += 0.5, 1.0, 1.0, 0);
-    glRotatef(rotx += 1.0, 1, 0, 0); // X軸回りの回転
-    ic2_WORDLogo(logoscale += 0.005);
+    glRotatef(roty, 0, 1, 0); // Y軸回りの回転
+    glRotatef(rotx, 1, 0, 0); // X軸回りの回転
+    ic2_OpenGLLogo(logoscale);
     ic2_DrawModel();
-    if (roty <= -360.0)
-      roty += 360.0;
-    if (rotx >= +360.0)
-      rotx -= 360.0;
-    if (logoscale >= 2.0)
-      logoscale = 0;
+
+    // 回転角度の正規化
+    if (roty <= -360.0) roty += 360.0;
+    if (roty >= +360.0) roty -= 360.0;
+    if (rotx <= -360.0) rotx += 360.0;
+    if (rotx >= +360.0) rotx -= 360.0;
   }
   // (5) 描画バッファの切替
   glutSwapBuffers();

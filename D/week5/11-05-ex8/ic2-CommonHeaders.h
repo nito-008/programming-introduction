@@ -68,10 +68,10 @@ struct ic2PATCH
 // 07-04-Callback.c
 void ic2_timerhandler(int keynumber);
 void ic2_NormalKeyInput(unsigned char key, int x, int y);
+void ic2_NormalKeyUp(unsigned char key, int x, int y);
 
 // 07-03-EmbededObjects.c
 void ic2_OpenGLLogo(float s);
-void ic2_WORDLogo(float s);
 
 // 07-03-Initialization.c
 void ic2_BootWindow(char winname[]);
@@ -99,3 +99,9 @@ int ic2_DrawModel(void);
 // 11-04-MainFunction.c
 extern float logoscale;
 extern struct ic2PATCH *firstpatchptr;
+
+// 09-03-Callback.c (キー状態)
+extern int key_h_pressed;
+extern int key_j_pressed;
+extern int key_k_pressed;
+extern int key_l_pressed;
